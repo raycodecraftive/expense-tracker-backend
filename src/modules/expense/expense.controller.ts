@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { Prisma } from '@prisma/client';
 import { CreateExpenseDTO } from './dto/createexpense.dto';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('expenses')
+@UseGuards(AuthGuard)
 export class ExpenseController {
     constructor(private readonly expenseService: ExpenseService) {}
 
