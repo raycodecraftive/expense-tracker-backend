@@ -29,14 +29,14 @@ export class ExpenseController {
     @Put(':id')
     async update(
         @Param('id') id: number,
-        @Body() data:Prisma.ExpenseUpdateInput,
+        @Body() data:CreateExpenseDTO,
     ) {
-        return this.expenseService.updateExpense(id,data);
+        return this.expenseService.updateExpense(+id,data);
     }
 
-    /// Delete an expense
+    /// Delete an expense  
     @Delete(':id')
     async remove(@Param('id') id: number) {
-        return this.expenseService.deleteExpense(id);
+        return this.expenseService.deleteExpense(+id);
     }
 }

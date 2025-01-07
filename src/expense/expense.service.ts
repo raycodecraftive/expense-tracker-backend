@@ -30,18 +30,25 @@ export class ExpenseService {
   }
 
   // Update an expense
-  async updateExpense(id: number, data: Prisma.ExpenseUpdateInput) {
+  async updateExpense(id: number, data: CreateExpenseDTO) {
     return this.prisma.expense.update({
       where: { id },
-      data,
+      data : {
+        amount  : data.price,
+        description : data.description,
+        category : data.category
+      },
     });
   }
 
   // Delete an expense
   async deleteExpense(id: number) {
-    return this.prisma.expense.delete({
+    
+    await  this.prisma.expense.delete({
       where: { id },
     });
+
+    return {"message" : "expense deleted"}
   }
 
   // Get all expenses
