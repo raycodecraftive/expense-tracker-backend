@@ -17,7 +17,9 @@ export class AuthController {
 
   //http://localhost:3000/auth/login
   @Post("login")
-  login (@Body() dto: LoginDTO) {
+  login (@Body() dto: LoginDTO,
+  
+) {
     return this.authService.login(dto);
   }
 

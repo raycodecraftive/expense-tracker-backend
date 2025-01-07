@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards, Req, Request } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { Prisma } from '@prisma/client';
 import { CreateExpenseDTO } from './dto/createexpense.dto';
@@ -17,8 +17,9 @@ export class ExpenseController {
 
     // Get all expenses
     @Get()
-    async findAll() {
-        return this.expenseService.getAllExpenses();
+    async findAll(@Req() req: any) {
+        console.log(req.user);
+        return this.expenseService.getAllExpenses(req.user);
     }
 
     /// Get a Single expense by ID

@@ -51,8 +51,14 @@ export class ExpenseService {
   }
 
   // Get all expenses
-  async getAllExpenses() {
+  async getAllExpenses(userID : number) {
     return this.prisma.expense.findMany(
+      {
+        where : {
+          userId: userID
+        
+      }}
+      
       
     );
   }
