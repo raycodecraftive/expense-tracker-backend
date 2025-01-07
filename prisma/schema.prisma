@@ -13,12 +13,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model User{
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String
+  password String
+
+
+  expense Expense[]
+}
+
 model Expense {
   id  Int @id @default(autoincrement())
   description String
   amount Float
   category  String
   date  DateTime @default(now())
+
+
+  userId Int 
+  user User @relation(fields: [userId], references: [id])
+  // the field called userID in this model is a reference to the id field in the User model
+
+
 
   /// The model has field for an expense table
 }

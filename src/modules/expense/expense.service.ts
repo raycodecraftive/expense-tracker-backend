@@ -9,13 +9,13 @@ export class ExpenseService {
 
   // Create a new expense
   async createExpense(data: CreateExpenseDTO) {
-    const {description,price,category} = data
+    const { description, price, category } = data;
     return this.prisma.expense.create({
-
-      data : {
-          description,
-        amount : price,
-        category 
+      data: {
+        description,
+        amount: price,
+        category,
+        userId: 100,
 
         /// destructuring object
       },
@@ -33,26 +33,27 @@ export class ExpenseService {
   async updateExpense(id: number, data: CreateExpenseDTO) {
     return this.prisma.expense.update({
       where: { id },
-      data : {
-        amount  : data.price,
-        description : data.description,
-        category : data.category
+      data: {
+        amount: data.price,
+        description: data.description,
+        category: data.category,
       },
     });
   }
 
   // Delete an expense
   async deleteExpense(id: number) {
-    
-    await  this.prisma.expense.delete({
+    await this.prisma.expense.delete({
       where: { id },
     });
 
-    return {"message" : "expense deleted"}
+    return { message: 'expense deleted' };
   }
 
   // Get all expenses
   async getAllExpenses() {
-    return this.prisma.expense.findMany();
+    return this.prisma.expense.findMany(
+      
+    );
   }
 }
