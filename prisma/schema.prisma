@@ -21,10 +21,10 @@ model User{
   password String
 
 
-  expense Expense[]
+  expense Transaction[]
 }
 
-model Expense {
+model Transaction {
   id  Int @id @default(autoincrement())
   description String
   amount Float

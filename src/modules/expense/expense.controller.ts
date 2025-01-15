@@ -11,14 +11,14 @@ export class ExpenseController {
 
     // Create a new expense
     @Post()
-    async create(@Body() data:CreateExpenseDTO) {
-        return this.expenseService.createExpense(data);
+    async create(@Body() data:CreateExpenseDTO , @Req() req: any) {
+        return this.expenseService.createExpense(data,  req.user);
     }
 
     // Get all expenses
     @Get()
     async findAll(@Req() req: any) {
-        console.log(req.user);
+
         return this.expenseService.getAllExpenses(req.user);
     }
 

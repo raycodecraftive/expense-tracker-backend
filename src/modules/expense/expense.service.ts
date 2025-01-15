@@ -8,30 +8,28 @@ export class ExpenseService {
   constructor(private prisma: PrismaService) {}
 
   // Create a new expense
-  async createExpense(data: CreateExpenseDTO) {
+  async createExpense(data: CreateExpenseDTO,  userID : number) {
     const { description, price, category } = data;
-    return this.prisma.expense.create({
+    return this.prisma.transaction.create({
       data: {
         description,
         amount: price,
         category,
-        userId: 100,
-
-        /// destructuring object
+        userId: userID,
       },
     });
   }
 
   // Get a single expense by ID
   async getExpenseById(id: number) {
-    return this.prisma.expense.findUnique({
+    return this.prisma.transaction.findUnique({
       where: { id },
     });
   }
 
   // Update an expense
   async updateExpense(id: number, data: CreateExpenseDTO) {
-    return this.prisma.expense.update({
+    return this.prisma.transaction.update({
       where: { id },
       data: {
         amount: data.price,
@@ -43,7 +41,7 @@ export class ExpenseService {
 
   // Delete an expense
   async deleteExpense(id: number) {
-    await this.prisma.expense.delete({
+    await this.prisma.transaction.delete({
       where: { id },
     });
 
@@ -52,7 +50,7 @@ export class ExpenseService {
 
   // Get all expenses
   async getAllExpenses(userID : number) {
-    return this.prisma.expense.findMany(
+    return this.prisma.transaction.findMany(
       {
         where : {
           userId: userID

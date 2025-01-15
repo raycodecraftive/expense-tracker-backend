@@ -5,6 +5,7 @@ import { PrismaService } from './services/prisma/prisma.service';
 import { ExpenseModule } from './modules/expense/expense.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ProfileModule } from './modules/profile/profile.module';
 
 @Module({
   imports: [ExpenseModule, AuthModule,
@@ -13,6 +14,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60d' },
     }),
+    ProfileModule,
 
   ],
   controllers: [AppController],
