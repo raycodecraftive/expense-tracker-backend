@@ -6,6 +6,8 @@ import { ExpenseModule } from './modules/expense/expense.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ProfileModule } from './modules/profile/profile.module';
+import { MailService } from './services/email/email.service';
+
 
 @Module({
   imports: [ExpenseModule, AuthModule,
@@ -18,7 +20,7 @@ import { ProfileModule } from './modules/profile/profile.module';
 
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService,
+  providers: [AppService, PrismaService, MailService,
 
 
   ],

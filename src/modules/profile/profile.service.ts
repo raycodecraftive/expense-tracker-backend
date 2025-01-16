@@ -33,6 +33,9 @@ export class ProfileService {
         // ---
         where: {
           userId: userID,
+          amount : {
+            gt: 0
+          }
         },
       }
       )

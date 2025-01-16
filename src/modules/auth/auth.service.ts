@@ -5,6 +5,8 @@ import { PrismaService } from 'src/services/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDTO } from './dto/login.dto';
+import { MailService } from 'src/services/email/email.service';
+
 
 @Injectable()
 export class AuthService {
@@ -12,6 +14,7 @@ export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly mailService: MailService,
   ) {}
   async login(dto: LoginDTO) {
 
@@ -64,7 +67,12 @@ export class AuthService {
       // generate token
 
       const accessToken = await this.jwtService.signAsync({ sub: user.id,  })
-      
+      await this.mailService.sendCustomEmail(
+        user.email,
+        'Welcome to Expense Tracker',
+        'Thank you for registering with us.',
+        []
+      )
       return {
         access_token: accessToken,
       };
